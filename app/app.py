@@ -1,9 +1,12 @@
 from flask import Flask, render_template
 import time
 import redis
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 app = Flask(__name__)
-cache = redis.Redis(host='redis', port=6379)
+cache = redis.Redis(host=os.getenv('REDIS_HOST'), port=6379, password=os.getenv('REDIS_PASSWORD'))
 
 def get_hit_count():
     retries = 5
